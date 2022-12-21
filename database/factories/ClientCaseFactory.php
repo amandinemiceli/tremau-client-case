@@ -20,7 +20,7 @@ class ClientCaseFactory extends Factory
      *
      * @return array
      */
-    public function definition()
+    public function definition(): array
     {
         return [
             'reporter_email' => $this->faker->unique()->safeEmail(),
