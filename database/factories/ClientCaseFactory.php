@@ -23,7 +23,10 @@ class ClientCaseFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'reporter_email' => $this->faker->unique()->safeEmail(),
+            'reporter_name'  => $this->faker->name(),
+            'reporter_age'   => $this->faker->numberBetween(0, 130),
+            'reporter_url'   => $this->url()
         ];
     }
 }
