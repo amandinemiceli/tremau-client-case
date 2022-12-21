@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateCasesTable extends Migration
+class CreateClientCasesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,14 @@ class CreateCasesTable extends Migration
      */
     public function up()
     {
-        Schema::create('cases', function (Blueprint $table) {
+        Schema::create('client_cases', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('reporter_email')->unique();
+            $table->string('reporter_name');
+            $table->unsignedTinyInteger('reporter_age');
+            $table->string('reported_url');
             $table->timestamps();
             $table->softDeletes();
-
-            $table->string('reporterName');
-            $table->unsignedTinyInteger('reporterAge');
-            $table->string('reportedUrl');
-            $table->string('reporterEmail')->unique();
         });
     }
 
@@ -32,6 +31,6 @@ class CreateCasesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('cases');
+        Schema::dropIfExists('client_cases');
     }
 }
