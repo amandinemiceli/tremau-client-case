@@ -18,7 +18,7 @@ class CreateClientCasesTable extends Migration
             $table->string('reporter_email')->unique();
             $table->string('reporter_name');
             $table->unsignedTinyInteger('reporter_age');
-            $table->string('reported_url');
+            $table->string('reporter_url');
             $table->timestamps();
             $table->softDeletes();
         });
