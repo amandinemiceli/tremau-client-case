@@ -28,7 +28,7 @@ class StoreClientCaseRequest extends FormRequest
         return [
             'reporterEmail' => 'required|email|unique:client_cases,reporter_email',
             'reporterName'  => 'required|alpha_dash',
-            'reporterAge'   => 'required|integer|between:18,130',
+            'reporterAge'   => 'required|integer|between:1,130',
             'reporterUrl'   => 'required|url'
         ];
     }
@@ -48,7 +48,7 @@ class StoreClientCaseRequest extends FormRequest
             'reporterName.alpha_dash'    => 'Only alpha-numeric characters, as well as dashes and underscores are allowed for the name.',
             'reporterAge.required'       => 'An age is required.',
             'reporterAge.integer'        => 'Only positive numbers are allowed for the age.',
-            'reporterAge.digits_between' => 'You must provide an age between 18 and 130.',
+            'reporterAge.digits_between' => 'You must provide an age between 1 and 130.',
             'reporterUrl.required'       => 'An url is required.',
             'reporterUrl.url'            => 'You must use a valid format for the url.'
         ];

@@ -25,8 +25,8 @@ class ClientCaseFactory extends Factory
         return [
             'reporter_email' => $this->faker->unique()->safeEmail(),
             'reporter_name'  => $this->faker->name(),
-            'reporter_age'   => $this->faker->numberBetween(0, 130),
-            'reporter_url'   => $this->url()
+            'reporter_age'   => $this->faker->numberBetween(1, 130),
+            'reporter_url'   => $this->faker->url()
         ];
     }
 }
