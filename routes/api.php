@@ -24,4 +24,10 @@ Route::prefix('/cases')->group(function () {
         'as'     => 'store',
         'uses'   => 'App\Http\Controllers\ClientCaseController@store',
     ]);
+
+    Route::post('/queue', [
+        'before' => 'csrf',
+        'as'     => 'storeAfterQueue',
+        'uses'   => 'App\Http\Controllers\ClientCaseController@storeAfterQueue',
+    ]);
 });

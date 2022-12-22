@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Jobs\ProcessClientCase;
 use App\Models\ClientCase;
-use App\Http\Controllers\BaseApiController as BaseApiController;
 
 use App\Http\Requests\StoreClientCaseRequest;
 use App\Http\Requests\UpdateClientCaseRequest;
+use App\Http\Controllers\BaseApiController as BaseApiController;
 
 class ClientCaseController extends BaseApiController
 {
@@ -36,7 +37,7 @@ class ClientCaseController extends BaseApiController
      * @param  \App\Http\Requests\StoreClientCaseRequest  $request
      * @return \Illuminate\Http\JsonResponse
      */
-    public function store(StoreClientCaseRequest $request): JsonResponse
+    public function store(StoreClientCaseRequest $request): \Illuminate\Http\JsonResponse
     {
         $newCase                 = new ClientCase;
         $newCase->reporter_email = $request->reporterEmail;
@@ -48,7 +49,27 @@ class ClientCaseController extends BaseApiController
             return $this->returnsError('Creation failed.');
         }
 
-        return $this->returnsSuccess();
+        return $this->returnsSuccess('Client Case successfully created.');
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     * Job is dispatch to make the client_case creation async
+     *
+     * @param  \App\Http\Requests\StoreClientCaseRequest  $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function storeAfterQueue(StoreClientCaseRequest $request): \Illuminate\Http\JsonResponse
+    {
+        $newCase                 = new ClientCase;
+        $newCase->reporter_email = $request->reporterEmail;
+        $newCase->reporter_name  = $request->reporterName;
+        $newCase->reporter_age   = $request->reporterAge;
+        $newCase->reporter_url   = $request->reporterUrl;
+
+        ProcessClientCase::dispatch($newCase);
+
+        return $this->returnsSuccess('Client Case creation successfully scheduled.');
     }
 
     /**
